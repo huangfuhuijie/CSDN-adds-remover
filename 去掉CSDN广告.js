@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         CSDN广告去除
+// @name         CSDN阅读优化+广告去除
 // @namespace    http://tampermonkey.net/
-// @version      0.3
-// @description  CSDN页面太乱太杂，广告也很多，这个脚本去掉这些个东西，让页面看起来清爽一点
+// @version      0.5
+// @description  CSDN页面太乱太杂，这个脚本去掉CSDN左右两栏广告，让页面自由展开，优化阅读体验。并且去掉所有的广告，清理剪切板。
 // @author       Huangfu
 // @include      https://blog.csdn.net/*/article/details/*
 // @grant        none
@@ -23,13 +23,16 @@
     remove(tag[0]);
     //移除右两栏
     var mainBox = document.getElementById("mainBox");
-    mainBox.removeChild(mainBox.firstElementChild);
+    remove(mainBox.firstElementChild);
     //设置主窗口适应宽高
     var main = document.getElementsByTagName("main");
     main = main[0]; main.style.width = "85vw";
     main.style.float = "left";
     //去掉底下的广告
-    main.removeChild(main.children[7]);
+    var btn_add = document.getElementsByClassName("mediav_ad");
+    while(btn_add.length!=0){
+        remove(btn_add[0]);
+    }
     //去掉工具栏
     var bottonbar = document.getElementsByClassName("tool-box");
     remove(bottonbar[0]);
@@ -46,4 +49,14 @@
     //展开阅读更多
     var btn = document.getElementById("btn-readmore");
     btn.click();
+    //去掉粘贴时的推广信息
+    csdn.copyright.init("","");
+    //当有推荐栏时，去掉只有登陆才能展开
+    try{
+        remove(btnMoreComment.children[0]);
+        btnMoreComment.prepend("点击右侧小箭头展开")
+    }catch(e){
+        console.log(e);
+    }
+
 })();
