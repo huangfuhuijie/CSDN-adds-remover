@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CSDN阅读优化+广告去除
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  CSDN页面太乱太杂，这个脚本去掉CSDN左右两栏广告，让页面自由展开，优化阅读体验。并且去掉所有的广告，清理剪切板。
 // @author       Huangfu
 // @include      https://blog.csdn.net/*/article/details/*
@@ -22,8 +22,8 @@
     var tag = document.getElementsByTagName("aside");
     remove(tag[0]);
     //移除右两栏
-    var mainBox = document.getElementById("mainBox");
-    remove(mainBox.firstElementChild);
+    var recommend_right = document.getElementsByClassName("recommend-right");
+    remove(recommend_right[0]);
     //设置主窗口适应宽高
     var main = document.getElementsByTagName("main");
     main = main[0]; main.style.width = "85vw";
