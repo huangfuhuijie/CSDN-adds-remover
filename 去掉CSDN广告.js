@@ -48,7 +48,7 @@
     remove(btn_bar[0]);
     //展开阅读更多
     var btn = document.getElementById("btn-readmore");
-    btn.click();
+    if(btn!=undefined) btn.click();
     //去掉粘贴时的推广信息
     csdn.copyright.init("","");
     //当有推荐栏时，去掉只有登陆才能展开
